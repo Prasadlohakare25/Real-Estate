@@ -32,6 +32,18 @@ const updateRoute = async (req, res, next) => {
     }
 }
 
+const deleteUser = async (req, res, next) => {
+    if (req.user.id !== req.params.id) return next(errorHandler(401, "You can only Delete your own account"))//if the user does not match with the requested user
+
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.clearCookie('access_token');
+        res.status(200).json('User deleted succesfully');
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
-    test, updateRoute
+    test, updateRoute, deleteUser
 }
