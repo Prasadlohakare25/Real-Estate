@@ -43,9 +43,7 @@ const google = async (req, res, next) => {
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECKEY)
             const { password: pass, ...rest } = user._doc;//to not show the password of the user to anyone we have destructured it and passed the rest of the data as a json(for security purposes)
 
-            res.cookie('access_token', token, { httpOnly: true }, { expires: new Date(Date.now() + 60 * 60 * 1000) })
-                .status(200)
-                .json(rest)//creating a cookie for authorisation and setting its age to 1 hour and http true for not giving access to any other third party app
+            res.cookie('access_token', token, { httpOnly: true }, { expires: new Date(Date.now() + 60 * 60 * 1000) }).status(200).json(rest)//creating a cookie for authorisation and setting its age to 1 hour and http true for not giving access to any other third party app
         } else {
             const generatePassword = Math.random().toString(36).slice(-8);//creating a random password of the combination of the alphabets and the numbers and taking the last 8 digit of it to create an account
             const hashedPassword = bcryptjs.hashSync(generatePassword, 10);//hashing the password

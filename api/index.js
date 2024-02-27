@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');//to initialise env variable for security pruposes 
 const authRouter = require('./Routes/auth.route');
+const cookieParser = require('cookie-parser');
+const userRouter = require('./Routes/user.route');
 dotenv.config({ path: '../.env' });//this allows us to use those env variable
 // process.env.MONGO
 mongoose.connect(process.env.MONGO).then(() => {
@@ -12,7 +14,10 @@ mongoose.connect(process.env.MONGO).then(() => {
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+
 app.use('/api/auth', authRouter)
+app.use('/api/user', userRouter)
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
