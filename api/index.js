@@ -4,6 +4,7 @@ const dotenv = require('dotenv');//to initialise env variable for security prupo
 const authRouter = require('./Routes/auth.route');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./Routes/user.route');
+const listingRouter = require('./Routes/listing.route')
 dotenv.config({ path: '../.env' });//this allows us to use those env variable
 // process.env.MONGO
 mongoose.connect(process.env.MONGO).then(() => {
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRouter)
 app.use('/api/user', userRouter)
+app.use('/api/listing', listingRouter)
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
