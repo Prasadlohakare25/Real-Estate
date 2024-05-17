@@ -5,7 +5,7 @@ const authRouter = require('./Routes/auth.route');
 const cookieParser = require('cookie-parser');
 const userRouter = require('./Routes/user.route');
 const listingRouter = require('./Routes/listing.route')
-dotenv.config({ path: '../.env' });//this allows us to use those env variable
+dotenv.config({ path: './.env' });//this allows us to use those env variable
 // process.env.MONGO
 mongoose.connect(process.env.MONGO).then(() => {
     console.log("MongoDB connected successfully");
